@@ -33,8 +33,8 @@ def w(z, M2, w0, z0):
 
 # %% 
 
-paramsx = curve_fit(w, z, Rx, bounds=([0, 0, 0], [10, 400e-6, 1]))[0]
-paramsy = curve_fit(w, z, Ry, bounds=([0, 0, 0], [10, 400e-6, 1]))[0]
+paramsx = curve_fit(w, z, Rx, bounds=([1, 100e-6, 0.2], [2, 200e-6, 0.4]))[0]
+paramsy = curve_fit(w, z, Ry, bounds=([1, 100e-6, 0.2], [2, 200e-6, 0.4]))[0]
 
 
 # %% plot data
@@ -43,10 +43,10 @@ zplot = np.linspace(z.min()*0.9, z.max()*1.1)
 plt.figure(dpi=333)
 plt.plot(z, 1e3*Rx, '.', label='$R_x$ (mm)')
 plt.plot(zplot, 1e3*w(zplot, paramsx[0], paramsx[1], paramsx[2]), '--', color='tab:blue',
-         label='$M= {:.2f}$, $w_0 = {:.3}$ mm, $z_0 = {:.2f}$ m '.format(np.sqrt(paramsx[0]), 1e3*paramsx[1], paramsx[2]), linewidth=0.6)
-plt.plot(z, 1e3*Ry, '.', label='$D_y$ (mm)')
+         label='$M^2= {:.2f}$, $w_0 = {:.3}$ mm, $z_0 = {:.3f}$ m '.format(paramsx[0], 1e3*paramsx[1], paramsx[2]), linewidth=0.6)
+plt.plot(z, 1e3*Ry, '.', label='$R_y$ (mm)')
 plt.plot(zplot, 1e3*w(zplot, paramsy[0], paramsy[1], paramsy[2]), '--', color='tab:orange',
-         label='$M= {:.2f}$, $w_0 = {:.3}$ mm, $z_0 = {:.2f}$ m '.format(np.sqrt(paramsy[0]), 1e3*paramsy[1], paramsy[2]), linewidth=0.6)
+         label='$M^2= {:.2f}$, $w_0 = {:.3}$ mm, $z_0 = {:.3f}$ m '.format((paramsy[0]), 1e3*paramsy[1], paramsy[2]), linewidth=0.6)
 plt.legend()
 plt.grid()
 plt.xlabel('z (m)')
