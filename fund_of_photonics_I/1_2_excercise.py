@@ -34,8 +34,8 @@ paramsx = curve_fit(w, z, Dx)[0]
 paramsy = curve_fit(w, z, Dy)[0]
 # %% not working
 
-paramsx = curve_fit(w, z, Rx)[0]
-paramsy = curve_fit(w, z, Ry)[0]
+paramsx = curve_fit(w, z, Rx, bounds=([0, 0, 1], [10, 400e-6, 100]))[0]
+paramsy = curve_fit(w, z, Ry, bounds=([0, 0, 1], [10, 400e-6, 100]))[0]
 # print(paramsx)
 # %% plot data
 zplot = np.linspace(z.min()*0.9, z.max()*1.1)
