@@ -1,7 +1,9 @@
 # %%
-import matplotlib.pyplot as plt
 import numpy as np
 from scipy import constants
+import matplotlib.pyplot as plt
+
+plt.style.use('bmh')
 
 def ev2Joule(val):
     return val/constants.e
@@ -54,12 +56,12 @@ print(f'Hloubka ostrosti je {z2 - z3}')
 
 # %% 9.1
 
-field_gradient = 1.83e9 #* constants.mu_0
+field_gradient = 1.83e9 #
 d_1 = 3e-2
 d_2 = 25e-2
 E_k = 3e-20
 
-force = constants.physical_constants['Bohr magneton'][0]*field_gradient
+force = constants.physical_constants['Bohr magneton'][0]*field_gradient* constants.mu_0
 
 print(f'Magnetic force is {force}')
 
@@ -73,19 +75,20 @@ v_x = np.sqrt(2*E_k/mass)
 print(f'v_x = {v_x}')
 
 t_1 = d_1/v_x
+print(f't_1 = {t_1}')
 
 v_z = acceleration*t_1
 print(f'v_z = {v_z}')
 
 alpha = np.rad2deg(np.arctan(v_x/v_z))
 print(f'Tha atom is leaving the angle {alpha}')
-# %% 9.2 
+# %% 9.2
 
 I = 10 # A
 R = 5e-2
 z = 10e-2
 
-grad_B = -1.5 * constants.mu_0 * I * R**2 * z / (z**2 + R**2)**2.5
+grad_B = 2* -0.75 * constants.mu_0 * I * R**2 * z / (z**2 + R**2)**2.5
 print(f'grad B_z = {grad_B}')
 
 force = constants.physical_constants['Bohr magneton'][0]*field_gradient
@@ -98,7 +101,7 @@ print(f'Magnetic force is {force}')
 U_H = 8.8e-3
 U = 230 # both in V
 
-rho_Ge = 1/80 
+rho_Ge = 1/80
 B = 0.1 # T
 
 L = 0.1 #m
@@ -108,7 +111,7 @@ R_H = U_H * rho_Ge * L / (U*l*B)
 
 print(f'the Hall const is {R_H}')
 
-conc = - R_H * constants.e
+conc = - 1/(R_H * constants.e)
 print(f'concentration is {conc}')
 # %% 9.4
 
@@ -122,6 +125,34 @@ R_ap = 1e3
 
 R_p = R_ap/(1+TMR)
 
-print(f'TMR is {TMR}')
+print(f'R_p is {R_p}')
 
+# %%
+
+X_a = np.linspace(0, 1, 100)
+X_b = 1 - X_a
+
+G_a = 2
+G_b = 3
+
+G_0 = X_a * G_a + X_b * G_b
+
+plt.plot(X_b, G_0)
+# %%
+
+R = constants.R
+k = constants.Boltzmann
+
+Hv = np.log(6)*k  * 1/(- 1/(1000) + 1/(800))
+print(f'Vacancy enthalpy is: {Hv}')
+print(f"Vacancy enthalpy is: {Hv/constants.e} eV")
+# %%
+
+conc1 = np.exp(ev2Joule(0.92)/(298*k))
+conc2 = np.exp(ev2Joule(0.92)/(973*k))
+
+ratio = np.exp(0.92*constants.e/constants.Boltzmann * (-1/298 + 1/973))
+
+print(f"ratio is {ratio}")
+print(f"ration is {conc2/conc1}")
 # %%
