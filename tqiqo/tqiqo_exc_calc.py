@@ -18,7 +18,7 @@ def gaussian_state(x, x0, sigma, k):
     return N * np.exp(-(x - x0)**2/(2*sigma**2) - 1j*k*x)
 
 x = np.linspace(-10, 10, 1000)
-x0 = 0
+x0 = 4
 sigma = 0.7
 k = 6
 
@@ -27,7 +27,7 @@ plt.plot(x, np.abs(gaussian_state(x, x0, sigma, k))**2, label='$\Psi^2$')
 plt.plot(x, np.real(gaussian_state(x, x0, sigma, k)), label='Re($\Psi$)')
 
 plt.legend()
-plt.xlabel(r'$x - \bar{x}$')
+plt.xlabel(r'$x$')
 
 # %%
 def gaussian_state_momentum(p, sigma, k, x_0=1):
